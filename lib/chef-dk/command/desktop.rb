@@ -75,7 +75,7 @@ BANNER
       end
 
       def run(params = [])
-        return 1 unless apply_params!(params)
+        return 1 unless params = apply_params!(params)
         chef_runner(run_list(params)).converge
         0
       end
