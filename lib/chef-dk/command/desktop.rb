@@ -54,7 +54,7 @@ BANNER
       end
 
       def run_list(recipes)
-        ["recipe[#{desktop_cookbook_name}]"] unless recipes
+        return ["recipe[#{desktop_cookbook_name}]"] if recipes.empty?
         recipes.map {|recipe| ["recipe[#{desktop_cookbook_name}::#{recipe}]"] }
       end
 
@@ -76,8 +76,7 @@ BANNER
 
       def run(params = [])
         return 1 unless apply_params!(params)
-        run_list = run_list(params)
-        chef_runner(run_list).converge
+        chef_runner(run_list(params)).converge
         0
       end
 
